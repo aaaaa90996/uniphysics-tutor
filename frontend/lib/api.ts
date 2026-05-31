@@ -7,26 +7,13 @@ import {
 } from './types';
 
 const API_BASE = '';
-const DEFAULT_TIMEOUT = 60000; // 60s for LLM calls
-const HEALTH_TIMEOUT = 10000;  // 10s for health check
-
-async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs: number): Promise<Response> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { ...options, signal: controller.signal });
-    return res;
-  } finally {
-    clearTimeout(timer);
-  }
-}
 
 async function fetchAPI<T>(endpoint: string, body: unknown): Promise<T> {
-  const res = await fetchWithTimeout(`${API_BASE}${endpoint}`, {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }, DEFAULT_TIMEOUT);
+  });
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
@@ -37,7 +24,7 @@ async function fetchAPI<T>(endpoint: string, body: unknown): Promise<T> {
 }
 
 export async function healthCheck(): Promise<HealthResponse> {
-  const res = await fetchWithTimeout(`${API_BASE}/api/health`, {}, HEALTH_TIMEOUT);
+  const res = await fetch(`${API_BASE}/api/health`);
   return res.json();
 }
 
