@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ exercises });
   } catch (e: any) {
-    return NextResponse.json({ detail: e.message }, { status: 500 });
+    console.error('Exercise API error:', e);
+    return NextResponse.json({ detail: 'Internal server error' }, { status: 500 });
   }
 }

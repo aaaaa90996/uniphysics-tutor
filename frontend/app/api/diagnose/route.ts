@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
       follow_up_question: get('追问') || undefined,
     });
   } catch (e: any) {
-    return NextResponse.json({ detail: e.message }, { status: 500 });
+    console.error('Diagnose API error:', e);
+    return NextResponse.json({ detail: 'Internal server error' }, { status: 500 });
   }
 }

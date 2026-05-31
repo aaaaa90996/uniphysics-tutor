@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
     const raw = await callLLM(constructChatMessage(message, mode, course), systemPrompt, history);
     return NextResponse.json({ raw_answer: raw, sections: parseStructuredJSON(raw), warnings: [], retrieved_chunks: [] });
   } catch (e: any) {
-    return NextResponse.json({ detail: e.message }, { status: 500 });
+    console.error('Chat API error:', e);
+    return NextResponse.json({ detail: 'Internal server error' }, { status: 500 });
   }
 }

@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
       common_mistake: extract('常见错误') || extract('误区'), warnings: [],
     });
   } catch (e: any) {
-    return NextResponse.json({ detail: e.message }, { status: 500 });
+    console.error('Solve API error:', e);
+    return NextResponse.json({ detail: 'Internal server error' }, { status: 500 });
   }
 }

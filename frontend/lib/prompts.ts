@@ -124,7 +124,10 @@ const COURSE_NAMES: Record<string, string> = {
 
 export function constructChatMessage(msg: string, mode: string, course?: string): string {
   const parts = [`学生问题：${msg}`];
-  if (course) parts.push(`课程模块：${COURSE_NAMES[course] || course}`);
+  if (course) {
+    if (!COURSE_NAMES[course]) throw new Error(`Invalid course: ${course}`);
+    parts.push(`课程模块：${COURSE_NAMES[course]}`);
+  }
   if (mode === 'guided') parts.push('\n注意：当前为引导模式。请先给学生提示，不要直接给出完整答案。');
   else if (mode === 'full') parts.push('\n注意：当前为完整解题模式，请给出完整的、分步骤的解答。');
   return parts.join('\n\n');
