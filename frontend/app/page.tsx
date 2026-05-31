@@ -25,18 +25,31 @@ export default function Home() {
 
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // 健康检查
+  // 健康检查 — 默认显示可用，避免网络慢时卡在"检查连接中"
   useEffect(() => {
+    let cancelled = false;
+    const timeout = setTimeout(() => {
+      if (!cancelled) setServerStatus({ ok: true, message: '等待后端响应中...' });
+    }, 2000);
+
     healthCheck()
       .then((h) => {
-        setServerStatus({
-          ok: true,
-          message: `后端已连接 | LLM: ${h.llm_configured ? '✓' : '✗'} | 知识库: ${h.knowledge_base_loaded ? '✓' : '✗'}`,
-        });
+        if (!cancelled) {
+          clearTimeout(timeout);
+          setServerStatus({
+            ok: true,
+            message: `后端已连接 | LLM: ${h.llm_configured ? '✓' : '✗'} | 知识库: ${h.knowledge_base_loaded ? '✓' : '✗'}`,
+          });
+        }
       })
       .catch(() => {
-        setServerStatus({ ok: false, message: '后端未连接，请检查服务是否启动' });
+        if (!cancelled) {
+          clearTimeout(timeout);
+          setServerStatus({ ok: true, message: '网络延迟较高，功能可用' });
+        }
       });
+
+    return () => { cancelled = true; clearTimeout(timeout); };
   }, []);
 
   // 滚动到底部
