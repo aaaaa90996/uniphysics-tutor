@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: uniphysics-tutor-api
+    runtime: docker
+    repo: https://github.com/aaaaa90996/uniphysics-tutor
+    rootDir: backend
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_API_BASE
+        value: https://api.deepseek.com/v1
+      - key: LLM_MODEL
+        value: deepseek-chat
+      - key: EMBEDDING_MODEL_NAME
+        value: ""
+      - key: TTS_ENABLED
+        value: "true"
+      - key: TTS_PROVIDER
+        value: edge-tts
