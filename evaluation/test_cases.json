@@ -1,0 +1,186 @@
+{
+  "test_suite": "UniPhysics Tutor 物理回答质量测试",
+  "version": "0.1.0",
+  "dimensions": [
+    "concept_correctness",
+    "formula_correctness",
+    "conditions_stated",
+    "unit_check",
+    "common_mistakes_identified",
+    "no_fabrication",
+    "undergraduate_appropriate"
+  ],
+  "test_cases": [
+    {
+      "id": "t01_concept_gauss",
+      "question": "为什么高斯定理不一定能直接求出电场？",
+      "course": "electromagnetism",
+      "mode": "explain",
+      "expected_elements": [
+        "高斯定理普遍成立",
+        "对称性条件",
+        "球对称/圆柱对称/平面对称",
+        "E可以提出积分号的原因"
+      ],
+      "must_not_contain": [
+        "高斯定理只在对称时成立"
+      ]
+    },
+    {
+      "id": "t02_concept_conservative_force",
+      "question": "保守力为什么可以定义势能？",
+      "course": "mechanics",
+      "mode": "explain",
+      "expected_elements": [
+        "保守力环路积分为零",
+        "做功与路径无关",
+        "只与初末位置有关",
+        "F = -∇U"
+      ],
+      "must_not_contain": []
+    },
+    {
+      "id": "t03_concept_velocity_acceleration",
+      "question": "速度为零时加速度一定为零吗？",
+      "course": "mechanics",
+      "mode": "explain",
+      "expected_elements": [
+        "竖直上抛最高点",
+        "v=0但a=g",
+        "速度和加速度的独立性"
+      ],
+      "must_not_contain": [
+        "速度为零所以加速度一定为零"
+      ]
+    },
+    {
+      "id": "t04_solve_incline",
+      "question": "质量为 m 的物体在倾角为 θ 的光滑斜面上下滑，求加速度。",
+      "course": "mechanics",
+      "mode": "full",
+      "expected_elements": [
+        "a = g sinθ",
+        "与质量无关",
+        "坐标系选择",
+        "重力分解"
+      ],
+      "must_not_contain": []
+    },
+    {
+      "id": "t05_concept_mechanical_energy",
+      "question": "什么情况下机械能守恒？",
+      "course": "mechanics",
+      "mode": "explain",
+      "expected_elements": [
+        "只有保守力做功",
+        "非保守力做功为零",
+        "动能+势能=常数",
+        "摩擦力不做功的条件"
+      ],
+      "must_not_contain": [
+        "机械能总是守恒"
+      ]
+    },
+    {
+      "id": "t06_concept_momentum_vs_energy",
+      "question": "动量守恒和机械能守恒有什么区别？",
+      "course": "mechanics",
+      "mode": "explain",
+      "expected_elements": [
+        "动量守恒条件：合外力为零",
+        "机械能守恒条件：保守力",
+        "相互独立",
+        "碰撞中的适用情况"
+      ],
+      "must_not_contain": [
+        "动量守恒和机械能守恒是一回事"
+      ]
+    },
+    {
+      "id": "t07_concept_potential_field",
+      "question": "为什么电势为零不代表电场为零？",
+      "course": "electromagnetism",
+      "mode": "explain",
+      "expected_elements": [
+        "E = -∇V",
+        "电势梯度",
+        "V=0梯度不一定为零",
+        "具体例子"
+      ],
+      "must_not_contain": [
+        "电势为零所以电场一定为零"
+      ]
+    },
+    {
+      "id": "t08_concept_lorentz_work",
+      "question": "洛伦兹力为什么不改变粒子速率？",
+      "course": "electromagnetism",
+      "mode": "explain",
+      "expected_elements": [
+        "F ⊥ v",
+        "不做功",
+        "动能不变",
+        "只改变方向"
+      ],
+      "must_not_contain": [
+        "洛伦兹力做正功"
+      ]
+    },
+    {
+      "id": "t09_concept_lenz",
+      "question": "楞次定律中的"阻碍变化"是什么意思？",
+      "course": "electromagnetism",
+      "mode": "explain",
+      "expected_elements": [
+        "阻碍磁通量变化",
+        "不是阻碍磁通量",
+        "能量守恒的体现",
+        "增加→反向，减少→同向"
+      ],
+      "must_not_contain": [
+        "阻碍磁通量本身"
+      ]
+    },
+    {
+      "id": "t10_concept_shm",
+      "question": "简谐振动为什么满足 a = -ω²x？",
+      "course": "oscillation",
+      "mode": "explain",
+      "expected_elements": [
+        "F = -kx → ma = -kx",
+        "ω² = k/m",
+        "位移与加速度方向相反",
+        "ω由系统参数决定"
+      ],
+      "must_not_contain": []
+    },
+    {
+      "id": "t11_solve_free_fall",
+      "question": "一质量为 m 的小球从高度 h 处无初速度下落，忽略空气阻力，求落地速度。",
+      "course": "mechanics",
+      "mode": "full",
+      "expected_elements": [
+        "v = √(2gh)",
+        "与质量无关",
+        "至少给出两种解法",
+        "单位检查"
+      ],
+      "must_not_contain": []
+    },
+    {
+      "id": "t12_diagnose_potential_field",
+      "student_answer": "电势为零的位置，电场也一定为零。",
+      "question_context": "判断电势和电场的关系",
+      "course": "electromagnetism",
+      "mode": "diagnose",
+      "expected_elements": [
+        "错误",
+        "E = -∇V",
+        "梯度与函数值的区别"
+      ],
+      "must_not_contain": [
+        "这个说法是正确的"
+      ]
+    }
+  ]
+}

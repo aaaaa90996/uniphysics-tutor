@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── KaTeX CSS（从 npm 包加载，不依赖 CDN） ──────────── */
+@import "katex/dist/katex.min.css";
+
+/* ── 全局中文字体保障 ─────────────────────────────────── */
+html {
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB',
+    'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB',
+    'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: #f9fafb;
+  color: #111827;
+}
+
+/* ── 滚动条 ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f3f4f6; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* ── KaTeX ────────────────────────────────────────────── */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0;
+}
+.katex { font-size: 1.1em; }
+
+/* 兜底：强制隐藏 MathML 辅助层 —— 防止线性化原始公式裸露 */
+.katex-mathml {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden !important;
+}
+
+/* ── Markdown 内容 ────────────────────────────────────── */
+.markdown-content h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #bfdbfe;
+  padding-bottom: 0.25rem;
+}
+.markdown-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+.markdown-content p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.625;
+}
+.markdown-content ul, .markdown-content ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+.markdown-content ul { list-style: disc; }
+.markdown-content ol { list-style: decimal; }
+.markdown-content li { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+.markdown-content code {
+  background: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  color: #be185d;
+}
+.markdown-content pre {
+  background: #111827;
+  color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.markdown-content pre code {
+  background: transparent;
+  color: #f3f4f6;
+  padding: 0;
+}
+.markdown-content blockquote {
+  border-left: 4px solid #60a5fa;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.markdown-content strong { font-weight: 600; color: #111827; }
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.markdown-content th {
+  background: #dbeafe;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  border: 1px solid #d1d5db;
+}
+.markdown-content td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+}
+.markdown-content tr:nth-child(even) { background: #f9fafb; }
+
+/* ── 组件样式 ─────────────────────────────────────────── */
+.warning-badge {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+.concept-tag {
+  display: inline-block;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
