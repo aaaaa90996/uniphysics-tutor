@@ -68,23 +68,24 @@ _embedding_function: Optional[embedding_functions.SentenceTransformerEmbeddingFu
 
 
 def _get_embedding_function():
-    """使用本地 sentence-transformers 模型做嵌入"""
+    """获取 embedding 函数，优先使用本地模型，否则用 Chroma 内置 ONNX 模型"""
     global _embedding_function
     if _embedding_function is None:
         model_name = os.getenv("EMBEDDING_MODEL_NAME", "")
         if model_name:
             try:
-                _embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
+                from chromadb.utils import embedding_functions as ef
+                _embedding_function = ef.SentenceTransformerEmbeddingFunction(
                     model_name=model_name,
                 )
                 print(f"[RAG] Embedding model loaded: {model_name}")
             except Exception as e:
                 print(f"[RAG] Failed to load '{model_name}': {e}")
-                print("[RAG] Falling back to default all-MiniLM-L6-v2...")
+                print("[RAG] Falling back to default all-MiniLM-L6-v2 (ONNX)...")
                 _embedding_function = embedding_functions.DefaultEmbeddingFunction()
         else:
-            # 默认用 Chroma 内置的 all-MiniLM-L6-v2（小、快、支持英文+基础中文）
-            print("[RAG] Using default embedding: all-MiniLM-L6-v2")
+            # 默认用 Chroma 内置的 all-MiniLM-L6-v2（ONNX，无需 PyTorch）
+            print("[RAG] Using default embedding: all-MiniLM-L6-v2 (ONNX)")
             _embedding_function = embedding_functions.DefaultEmbeddingFunction()
     return _embedding_function
 
