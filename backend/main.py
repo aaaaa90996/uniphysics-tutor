@@ -35,17 +35,8 @@ from physics_validator import validate_physics_answer, validate_and_rewrite
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """启动时在后台构建知识库索引"""
-    print("[Startup] Building knowledge base index in background...")
-    def _build():
-        try:
-            n = build_index()
-            print(f"[Startup] Knowledge base ready: {n} chunks indexed.")
-        except Exception as e:
-            print(f"[Startup] Knowledge base index failed: {e}")
-            print("[Startup] The API will still work but RAG may be unavailable.")
-    t = threading.Thread(target=_build, daemon=True)
-    t.start()
+    """启动完成，不做重初始化"""
+    print("[Startup] UniPhysics Tutor API started.")
     yield
 
 
@@ -221,19 +212,13 @@ def _parse_structured_json(raw_answer: str) -> list[dict]:
 
 @app.get("/api/health", response_model=HealthResponse)
 async def health_check():
-    """健康检查"""
+    """健康检查 — 不触发任何重初始化，立即返回"""
     llm = get_llm_client()
-    try:
-        stats = get_collection_stats()
-        kb_loaded = stats["total_chunks"] > 0
-    except Exception:
-        kb_loaded = False
-
     return HealthResponse(
         status="ok",
         version="0.1.0",
         llm_configured=llm.is_configured(),
-        knowledge_base_loaded=kb_loaded,
+        knowledge_base_loaded=False,  # 启动后异步构建，这里不等待
     )
 
 
@@ -534,4 +519,6 @@ async def reload_knowledge():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=settings.BACKEND_PORT, reload=True)
+    import os
+    port = int(os.getenv("PORT", settings.BACKEND_PORT))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
